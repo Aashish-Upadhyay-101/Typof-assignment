@@ -1,3 +1,5 @@
-export const imageUploadController = async () => {};
+import { Request, Response } from "express";
 
-export const imageRetrieveController = async () => {};
+export const imageUploadController = async (req: Request, res: Response) => {};
+
+export const imageRetrieveController = async (req: Request, res: Response) => {};
