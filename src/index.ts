@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from "express";
-import path from "path";
 import multer from "multer";
+import mongoose from "mongoose";
 import { imageRetrieveController, imageUploadController } from "./imageController";
 
 // dotenv configure
@@ -14,7 +14,9 @@ app.use(express.json());
 app.use(express.static("uploads"));
 
 // database setup
-const DB = process.env.DATABASE?.replace("<password>", process.env.PASSWORD!);
+const DB = process.env.DATABASE!;
+
+mongoose.connect(DB).then(() => console.log("Database connected successfully!"));
 
 // multer setup
 const storageEngine = multer.diskStorage({
