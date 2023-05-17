@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import multer from "multer";
 import mongoose from "mongoose";
 import { imageRetrieveController, imageUploadController } from "./imageController";
