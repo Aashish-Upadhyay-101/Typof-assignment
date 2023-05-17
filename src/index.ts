@@ -1,4 +1,5 @@
-import express, { Express } from "express";
+import express, { Express, Request, Response } from "express";
+import path from "path";
 import multer from "multer";
 import { imageRetrieveController, imageUploadController } from "./imageController";
 
@@ -9,7 +10,11 @@ const app: Express = express();
 
 const port = process.env.PORT || 8080;
 
+app.use(express.json());
+app.use(express.static("uploads"));
+
 // database setup
+const DB = process.env.DATABASE?.replace("<password>", process.env.PASSWORD!);
 
 // multer setup
 const storageEngine = multer.diskStorage({
