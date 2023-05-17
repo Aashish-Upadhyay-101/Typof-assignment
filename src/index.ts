@@ -1,4 +1,6 @@
-import express, { Request, Response, Express } from "express";
+import express, { Express } from "express";
+import multer from "multer";
+import { imageRetrieveController, imageUploadController } from "./imageController";
 
 // dotenv configure
 require("dotenv").config();
@@ -9,11 +11,21 @@ const port = process.env.PORT || 8080;
 
 // database setup
 
-// multer configuration
+// multer setup
+const storageEngine = multer.diskStorage({
+    destination: "./uploads",
+    filename: (_, file, callback) => {
+        callback(null, `${Date.now()}-${file.originalname}`);
+    },
+});
 
-app.post("/images", (req: Request, res: Response) => {});
+const upload = multer({
+    storage: storageEngine,
+});
 
-app.get("/images", (req: Request, res: Response) => {});
+app.post("/images", upload.single("image"), imageUploadController);
+
+app.get("/images", imageRetrieveController);
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
